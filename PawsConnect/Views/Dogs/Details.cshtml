@@ -1,0 +1,131 @@
+﻿@model PawsConnect.Models.Dog
+
+@{
+    ViewData["Title"] = $"{Model.Name} Details";
+
+    var primaryImage = Model.Images
+        .FirstOrDefault(i => i.IsPrimary)
+        ?? Model.Images.FirstOrDefault();
+}
+
+<section class="page-header">
+    <div class="container">
+        <span class="section-label">PAWSCONNECT ADOPTION</span>
+
+        <h1>Meet @Model.Name</h1>
+
+        <p>
+            Learn more about this rescue dog and discover whether
+            they could be your next companion.
+        </p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="row g-5 align-items-start">
+
+            <!-- DOG PHOTO AREA -->
+            <div class="col-lg-5">
+
+                <div class="dog-detail-image">
+
+                    @if (primaryImage != null)
+                    {
+                        <img src="@primaryImage.ImageUrl"
+                             alt="@Model.Name"
+                             class="dog-detail-photo" />
+                    }
+                    else
+                    {
+                        <span>🐕</span>
+                    }
+
+                </div>
+
+            </div>
+
+            <!-- DOG INFORMATION -->
+            <div class="col-lg-7">
+
+                <span class="badge bg-success mb-3">
+                    @Model.Status
+                </span>
+
+                <h2 class="dog-detail-name">
+                    @Model.Name
+                </h2>
+
+                <p class="dog-detail-breed">
+                    @Model.Breed
+                </p>
+
+                <div class="dog-detail-info">
+
+                    <div>
+                        <strong>Age</strong>
+                        <span>@Model.Age years</span>
+                    </div>
+
+                    <div>
+                        <strong>Gender</strong>
+                        <span>@Model.Gender</span>
+                    </div>
+
+                    <div>
+                        <strong>Size</strong>
+                        <span>@Model.Size</span>
+                    </div>
+
+                    <div>
+                        <strong>Location</strong>
+                        <span>@Model.Location</span>
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+
+                    <h3>About @Model.Name</h3>
+
+                    <p class="dog-detail-description">
+                        @Model.Description
+                    </p>
+
+                </div>
+
+                <div class="mt-4">
+
+                    <a asp-controller="Dogs"
+                       asp-action="Index"
+                       class="btn btn-outline-secondary me-2">
+                        Back to Dogs
+                    </a>
+
+                    @if (User.Identity != null && User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Adoption"
+                           asp-action="Create"
+                           asp-route-id="@Model.DogId"
+                           class="btn btn-primary">
+                            Apply to Adopt
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account"
+                           asp-action="Login"
+                           class="btn btn-primary">
+                            Login to Apply
+                        </a>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>

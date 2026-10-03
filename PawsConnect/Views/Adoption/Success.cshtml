@@ -1,0 +1,72 @@
+﻿@model PawsConnect.Models.AdoptionApplication
+
+@{
+    ViewData["Title"] = "Application Submitted";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <div style="font-size: 4rem;">✓</div>
+
+        <h1 class="display-5 fw-bold text-success">
+            Application Submitted!
+        </h1>
+
+        <p class="lead">
+            Thank you for applying to adopt a dog through PawsConnect.
+        </p>
+
+        <p class="text-muted">
+            Your application has been received and is currently being reviewed.
+        </p>
+    </div>
+
+    <div class="card shadow-sm mx-auto" style="max-width: 650px;">
+        <div class="card-body p-4">
+            <h3 class="mb-4">Application Details</h3>
+
+            <div class="mb-3">
+                <strong>Application Number:</strong>
+                <span>#@Model.AdoptionApplicationId</span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Dog:</strong>
+                <span>@Model.Dog?.Name</span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Submitted:</strong>
+                <span>@Model.SubmittedAt.ToLocalTime().ToString("dd MMMM yyyy, HH:mm")</span>
+            </div>
+
+            <div class="mb-3">
+                <strong>Status:</strong>
+                <span class="badge bg-warning text-dark">
+                    @Model.Status
+                </span>
+            </div>
+
+            <hr />
+
+            <p class="mb-0">
+                Our adoption team will review your application and contact you
+                if additional information is required.
+            </p>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a asp-controller="Dogs"
+           asp-action="Index"
+           class="btn btn-primary me-2">
+            Find More Dogs
+        </a>
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            Return Home
+        </a>
+    </div>
+</div>

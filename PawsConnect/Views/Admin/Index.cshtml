@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<section class="page-header">
+    <div class="container">
+        <span class="section-label">PAWSCONNECT ADMIN</span>
+
+        <h1>Admin Dashboard</h1>
+
+        <p>
+            Manage rescue dogs, adoption applications and the
+            PawsConnect community from one place.
+        </p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">🐕</div>
+
+                    <h3>Manage Dogs</h3>
+
+                    <p>
+                        Add, edit and manage rescue dogs available
+                        for adoption.
+                    </p>
+
+                    <a asp-controller="Dogs"
+                       asp-action="Index"
+                       class="btn btn-primary">
+                        Manage Dogs
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">📋</div>
+
+                    <h3>Manage Applications</h3>
+
+                    <p>
+                        Review and manage adoption applications
+                        submitted by adopters.
+                    </p>
+
+                    <a asp-controller="Admin"
+                       asp-action="Applications"
+                       class="btn btn-primary">
+                        Manage Applications
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <div class="feature-icon">💬</div>
+
+                    <h3>Forum Management</h3>
+
+                    <p>
+                        Monitor community discussions and remove
+                        inappropriate posts.
+                    </p>
+
+                    <a asp-controller="Admin"
+                       asp-action="Forum"
+                       class="btn btn-primary">
+                        Manage Forum
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>

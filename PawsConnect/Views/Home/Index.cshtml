@@ -1,0 +1,182 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+
+            <div class="col-lg-6 text-center text-lg-start">
+
+                <span class="hero-badge">
+                    🐾 Every dog deserves a loving home
+                </span>
+
+                <h1 class="hero-title mt-3">
+                    Find Your New
+                    <span>Best Friend</span>
+                </h1>
+
+                <p class="hero-text">
+                    PawsConnect helps rescued dogs find loving,
+                    responsible forever homes. Browse our available
+                    dogs and discover the companion you've been
+                    looking for.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a asp-controller="Dogs"
+                       asp-action="Index"
+                       class="btn btn-primary btn-lg me-2">
+                        Find a Dog
+                    </a>
+
+                    <a asp-controller="Home"
+                       asp-action="Privacy"
+                       class="btn btn-outline-secondary btn-lg">
+                        Learn More
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 mt-5 mt-lg-0">
+
+                <div class="hero-image-placeholder">
+                    <div class="hero-dog-icon">
+                        🐕
+                    </div>
+
+                    <h3>Give a Rescue Dog a Second Chance</h3>
+
+                    <p>
+                        Your next best friend could be waiting.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- Why PawsConnect -->
+<section class="features-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <span class="section-label">
+                HOW WE HELP
+            </span>
+
+            <h2>
+                Making Adoption Simple
+            </h2>
+
+            <p class="section-description">
+                PawsConnect connects rescued dogs with people
+                looking to give them a loving home.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🐾
+                    </div>
+
+                    <h3>Meet Rescue Dogs</h3>
+
+                    <p>
+                        Browse dogs currently looking for their
+                        forever homes and learn about their
+                        personalities and needs.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ❤️
+                    </div>
+
+                    <h3>Apply to Adopt</h3>
+
+                    <p>
+                        Submit an adoption application and tell
+                        us why you would be a great home for
+                        your chosen companion.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🏠
+                    </div>
+
+                    <h3>Find a Forever Home</h3>
+
+                    <p>
+                        Our goal is to create responsible
+                        adoptions that give every rescued dog
+                        the loving home they deserve.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- Call to Action -->
+<section class="cta-section">
+
+    <div class="container text-center">
+
+        <h2>
+            Ready to Meet Your New Companion?
+        </h2>
+
+        <p>
+            Explore the dogs currently available for adoption.
+        </p>
+
+        <a asp-controller="Dogs"
+           asp-action="Index"
+           class="btn btn-light btn-lg">
+            Browse Available Dogs
+        </a>
+
+    </div>
+
+</section>

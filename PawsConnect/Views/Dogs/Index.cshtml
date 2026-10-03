@@ -1,0 +1,109 @@
+﻿@model IEnumerable<PawsConnect.Models.Dog>
+
+@{
+    ViewData["Title"] = "Find a Dog";
+}
+
+<section class="page-header">
+    <div class="container">
+        <span class="section-label">PAWSCONNECT ADOPTION</span>
+
+        <h1>Find Your Perfect Companion</h1>
+
+        <p>
+            Browse our rescued dogs and discover a companion
+            who is waiting for a loving forever home.
+        </p>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="mt-4">
+                <a asp-action="Create"
+                   class="btn btn-primary">
+                    + Add a Dog
+                </a>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="dogs-section py-5">
+    <div class="container">
+
+        @if (!Model.Any())
+        {
+            <div class="text-center py-5">
+                <div class="feature-icon">🐾</div>
+
+                <h2>No Dogs Available Yet</h2>
+
+                <p class="text-muted">
+                    Our rescue team is preparing dogs for adoption.
+                    Please check back soon.
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="row g-4">
+
+                @foreach (var dog in Model)
+                {
+                    var primaryImage = dog.Images
+                        .FirstOrDefault(i => i.IsPrimary)
+                        ?? dog.Images.FirstOrDefault();
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="dog-card">
+
+                            <div class="dog-image-placeholder">
+                                @if (primaryImage != null)
+                                {
+                                    <img src="@primaryImage.ImageUrl"
+                                         alt="@dog.Name"
+                                         class="dog-card-image" />
+                                }
+                                else
+                                {
+                                    <span>🐕</span>
+                                }
+                            </div>
+
+                            <div class="dog-card-body">
+
+                                <h3>@dog.Name</h3>
+
+                                <p class="dog-breed">
+                                    @dog.Breed
+                                </p>
+
+                                <div class="dog-details">
+                                    <span>Age: @dog.Age</span>
+                                    <span>Gender: @dog.Gender</span>
+                                    <span>Size: @dog.Size</span>
+                                </div>
+
+                                <p class="dog-description">
+                                    @dog.Description
+                                </p>
+
+                                <a asp-controller="Dogs"
+                                   asp-action="Details"
+                                   asp-route-id="@dog.DogId"
+                                   class="btn btn-primary w-100">
+                                    View Details
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        }
+
+    </div>
+</section>

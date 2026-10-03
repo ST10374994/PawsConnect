@@ -1,0 +1,93 @@
+﻿@model List<PawsConnect.Models.ForumPost>
+
+@{
+    ViewData["Title"] = "Forum Management";
+}
+
+<div class="container py-5">
+
+    <div class="mb-4">
+        <h1 class="display-5 fw-bold">Forum Management</h1>
+        <p class="text-muted">
+            Review community discussions and remove inappropriate posts.
+        </p>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            No forum posts have been created yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Replies</th>
+                        <th>Posted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var post in Model)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@post.Title</strong>
+                                <br />
+                                <small class="text-muted">
+                                    @post.Content
+                                </small>
+                            </td>
+
+                            <td>
+                                @post.User?.FirstName
+                                @post.User?.LastName
+                            </td>
+
+                            <td>
+                                @post.Replies.Count
+                            </td>
+
+                            <td>@post.CreatedAt.ToLocalTime().ToString("dd MMMM yyyy")</td>
+
+                            <td>
+                                <form asp-controller="Admin"
+                                      asp-action="DeleteForumPost"
+                                      method="post"
+                                      onsubmit="return confirm('Are you sure you want to delete this forum post and its replies?');">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@post.PostId" />
+
+                                    <button type="submit"
+                                            class="btn btn-danger btn-sm">
+                                        Delete Post
+                                    </button>
+
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    }
+
+    <a asp-controller="Admin"
+       asp-action="Index"
+       class="btn btn-outline-secondary mt-3">
+        Back to Dashboard
+    </a>
+
+</div>

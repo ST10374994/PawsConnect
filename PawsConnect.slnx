@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="PawsConnect.Tests/PawsConnect.Tests.csproj" Id="ca95d140-d91e-4526-aa28-02dbdcd8dc7a" />
+  <Project Path="PawsConnect/PawsConnect.csproj" />
+</Solution>

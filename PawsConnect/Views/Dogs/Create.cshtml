@@ -1,0 +1,214 @@
+﻿@model PawsConnect.ViewModels.CreateDogViewModel
+
+@{
+    ViewData["Title"] = "Add Dog";
+}
+
+<section class="page-header">
+    <div class="container">
+        <span class="section-label">PAWSCONNECT ADMIN</span>
+
+        <h1>Add a Rescue Dog</h1>
+
+        <p>
+            Add a dog's information so potential adopters can
+            discover their next companion.
+        </p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <div class="auth-card">
+
+                    <div class="text-center mb-4">
+                        <div class="auth-icon">🐕</div>
+
+                        <h2>Dog Information</h2>
+
+                        <p class="text-muted">
+                            Complete the details below.
+                        </p>
+                    </div>
+
+                    <form asp-action="Create"
+                          method="post"
+                          enctype="multipart/form-data">
+
+                        <div asp-validation-summary="ModelOnly"
+                             class="text-danger mb-3">
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Name"
+                                       class="form-label">
+                                </label>
+
+                                <input asp-for="Name"
+                                       class="form-control"
+                                       placeholder="e.g. Buddy" />
+
+                                <span asp-validation-for="Name"
+                                      class="text-danger">
+                                </span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Breed"
+                                       class="form-label">
+                                </label>
+
+                                <input asp-for="Breed"
+                                       class="form-control"
+                                       placeholder="e.g. Labrador" />
+
+                                <span asp-validation-for="Breed"
+                                      class="text-danger">
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Age"
+                                       class="form-label">
+                                </label>
+
+                                <input asp-for="Age"
+                                       type="number"
+                                       class="form-control"
+                                       min="0"
+                                       max="30" />
+
+                                <span asp-validation-for="Age"
+                                      class="text-danger">
+                                </span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Gender"
+                                       class="form-label">
+                                </label>
+
+                                <select asp-for="Gender"
+                                        class="form-select">
+
+                                    <option value="">Select gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+
+                                </select>
+
+                                <span asp-validation-for="Gender"
+                                      class="text-danger">
+                                </span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Size"
+                                       class="form-label">
+                                </label>
+
+                                <select asp-for="Size"
+                                        class="form-select">
+
+                                    <option value="">Select size</option>
+                                    <option value="Small">Small</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Large">Large</option>
+
+                                </select>
+
+                                <span asp-validation-for="Size"
+                                      class="text-danger">
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Location"
+                                   class="form-label">
+                            </label>
+
+                            <input asp-for="Location"
+                                   class="form-control"
+                                   placeholder="e.g. PawsConnect Rescue Centre" />
+
+                            <span asp-validation-for="Location"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Description"
+                                   class="form-label">
+                            </label>
+
+                            <textarea asp-for="Description"
+                                      class="form-control"
+                                      rows="5"
+                                      placeholder="Describe the dog's personality, needs and background..."></textarea>
+
+                            <span asp-validation-for="Description"
+                                  class="text-danger">
+                            </span>
+                        </div>
+
+                        <!-- DOG PHOTO UPLOAD -->
+                        <div class="mb-4">
+                            <label asp-for="Photo"
+                                   class="form-label">
+                                Dog Photo
+                            </label>
+
+                            <input asp-for="Photo"
+                                   type="file"
+                                   class="form-control"
+                                   accept=".jpg,.jpeg,.png,.webp" />
+
+                            <span asp-validation-for="Photo"
+                                  class="text-danger">
+                            </span>
+
+                            <small class="text-muted">
+                                Upload a JPG, PNG or WebP image.
+                                Maximum size: 5 MB.
+                            </small>
+                        </div>
+
+                        <div class="d-flex gap-2">
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                Save Dog
+                            </button>
+
+                            <a asp-action="Index"
+                               class="btn btn-outline-secondary">
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

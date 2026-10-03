@@ -1,0 +1,92 @@
+﻿@model List<PawsConnect.Models.AdoptionApplication>
+
+@{
+    ViewData["Title"] = "Adoption Applications";
+}
+
+<div class="container py-5">
+    <div class="mb-5">
+        <h1 class="display-5 fw-bold">Adoption Applications</h1>
+        <p class="lead text-muted">
+            Review applications submitted by adopters.
+        </p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            No adoption applications have been submitted yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Application</th>
+                        <th>Dog</th>
+                        <th>Applicant</th>
+                        <th>Submitted</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var application in Model)
+                    {
+                        <tr>
+                            <td>
+                                #@application.AdoptionApplicationId
+                            </td>
+
+                            <td>
+                                @application.Dog?.Name
+                            </td>
+
+                            <td>
+                                @application.User?.FirstName
+                                @application.User?.LastName
+                            </td>
+
+                            <td>
+                                @application.SubmittedAt.ToLocalTime().ToString("dd MMMM yyyy")
+                            </td>
+
+                            <td>
+                                @if (application.Status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark">
+                                        Pending
+                                    </span>
+                                }
+                                else if (application.Status == "Approved")
+                                {
+                                    <span class="badge bg-success">
+                                        Approved
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">
+                                        @application.Status
+                                    </span>
+                                }
+                            </td>
+
+                            <td>
+                                <a asp-controller="Admin"
+                                   asp-action="ApplicationDetails"
+                                   asp-route-id="@application.AdoptionApplicationId"
+                                   class="btn btn-sm btn-primary">
+                                    View Details
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

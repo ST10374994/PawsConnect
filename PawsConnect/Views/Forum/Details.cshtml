@@ -1,0 +1,117 @@
+﻿@model PawsConnect.Models.ForumPost
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container py-5">
+
+    <div class="mb-4">
+        <a asp-controller="Forum"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            Back to Community
+        </a>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body p-4">
+
+            <h1 class="mb-3">@Model.Title</h1>
+
+            <p class="text-muted">
+                Posted by
+                @Model.User?.FirstName
+                @Model.User?.LastName
+                on @Model.CreatedAt.ToLocalTime().ToString("dd MMMM yyyy")
+            </p>
+
+            <hr />
+
+            <p>@Model.Content</p>
+
+        </div>
+    </div>
+
+    <h2 class="mb-3">Replies</h2>
+
+    @if (Model.Replies.Count == 0)
+    {
+        <div class="alert alert-info">
+            No replies yet. Be the first to respond.
+        </div>
+    }
+    else
+    {
+        @foreach (var reply in Model.Replies)
+        {
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+
+                    <p class="text-muted mb-2">
+                        @reply.User?.FirstName
+                        @reply.User?.LastName
+                        on @reply.CreatedAt.ToLocalTime().ToString("dd MMMM yyyy")
+                    </p>
+
+                    <p class="mb-0">@reply.Content</p>
+
+                </div>
+            </div>
+        }
+    }
+
+    @if (User.Identity != null &&
+         User.Identity.IsAuthenticated)
+    {
+        <div class="card shadow-sm mb-4">
+            <div class="card-body p-4">
+
+                <h3 class="mb-3">Add a Reply</h3>
+
+                <form asp-controller="Forum"
+                      asp-action="AddReply"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden"
+                           name="PostId"
+                           value="@Model.PostId" />
+
+                    <div class="mb-3">
+                        <label for="Content"
+                               class="form-label">
+                            Your Reply
+                        </label>
+
+                        <textarea id="Content"
+                                  name="Content"
+                                  class="form-control"
+                                  rows="5"
+                                  placeholder="Write your reply here..."
+                                  required></textarea>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Post Reply
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <a asp-controller="Account"
+               asp-action="Login">
+                Log in
+            </a>
+            to reply to this discussion.
+        </div>
+    }
+
+</div>

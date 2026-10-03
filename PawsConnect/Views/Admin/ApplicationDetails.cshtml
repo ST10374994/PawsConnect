@@ -1,0 +1,138 @@
+﻿@model PawsConnect.Models.AdoptionApplication
+
+@{
+    ViewData["Title"] = "Application Details";
+}
+
+<div class="container py-5">
+    <div class="mb-4">
+        <h1 class="display-5 fw-bold">Application Details</h1>
+        <p class="text-muted">
+            Review the information submitted by this adopter.
+        </p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+
+            <h3 class="mb-4">Application #@Model.AdoptionApplicationId</h3>
+
+            <h4>Applicant Information</h4>
+
+            <p>
+                <strong>Name:</strong>
+                @Model.User?.FirstName @Model.User?.LastName
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                @Model.User?.Email
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                @Model.Phone
+            </p>
+
+            <p>
+                <strong>Home Address:</strong>
+                @Model.Address
+            </p>
+
+            <hr />
+
+            <h4>Dog Information</h4>
+
+            <p>
+                <strong>Dog:</strong>
+                @Model.Dog?.Name
+            </p>
+
+            <p>
+                <strong>Breed:</strong>
+                @Model.Dog?.Breed
+            </p>
+
+            <hr />
+
+            <h4>Adoption Information</h4>
+
+            <p>
+                <strong>Reason for adoption:</strong>
+                @Model.ReasonForAdoption
+            </p>
+
+            <p>
+                <strong>Other pets:</strong>
+                @(Model.HasOtherPets ? "Yes" : "No")
+            </p>
+
+            <p>
+                <strong>Experience with pets:</strong>
+                @(string.IsNullOrWhiteSpace(Model.Experience)
+                    ? "Not provided"
+                    : Model.Experience)
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                @Model.Status
+            </p>
+
+            <p>
+                <strong>Submitted:</strong>
+                @Model.SubmittedAt.ToLocalTime().ToString("dd MMMM yyyy")
+            </p>
+
+            @if (Model.Status == "Pending")
+            {
+                <div class="d-flex gap-2 mt-4">
+                    <form asp-controller="Admin"
+                          asp-action="ApproveApplication"
+                          method="post">
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               name="id"
+                               value="@Model.AdoptionApplicationId" />
+
+                        <button type="submit"
+                                class="btn btn-success">
+                            Approve Application
+                        </button>
+                    </form>
+
+                    <form asp-controller="Admin"
+                          asp-action="RejectApplication"
+                          method="post">
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               name="id"
+                               value="@Model.AdoptionApplicationId" />
+
+                        <button type="submit"
+                                class="btn btn-danger">
+                            Reject Application
+                        </button>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info mt-4">
+                    This application has already been reviewed.
+                </div>
+            }
+
+            <div class="mt-4">
+                <a asp-controller="Admin"
+                   asp-action="Applications"
+                   class="btn btn-outline-secondary">
+                    Back to Applications
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
