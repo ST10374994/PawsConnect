@@ -1,194 +1,212 @@
 # 🐾 PawsConnect
 
-PawsConnect is a web-based animal shelter and adoption management application developed using **ASP.NET Core MVC**. The system allows users to browse available dogs, view dog information, submit adoption applications, participate in a community forum, and manage shelter content through an administrator area.
+PawsConnect is a web-based animal adoption and community platform developed for the INSY7315 Information Systems 3E 2026 implementation project.
 
-The project was developed as part of the **INSY7315** coursework and focuses on implementing a functional, user-friendly animal adoption platform.
-
----
-
-## 📌 Project Overview
-
-PawsConnect provides a central platform connecting potential adopters with dogs available for adoption.
-
-The application includes:
-
-- 🏠 Home page
-- 🐶 Browse available dogs
-- 🔎 Dog information and details
-- ❤️ Adoption applications
-- 👤 User registration and login
-- 🔐 Role-based access control
-- 🛠️ Administrator functionality
-- 💬 Community forum
-- 🖼️ Dog image uploads
-- 🗄️ SQL Server database
-- 🧪 Automated tests
-- 🐳 Docker support
-- 📱 Responsive web interface
+The system provides users with a simple and accessible way to browse dogs available for adoption, view dog information, submit adoption applications, and participate in a community forum. Administrative functionality allows authorised users to manage dogs and adoption-related information.
 
 ---
 
-## ✨ Main Features
+## 📌 Project Information
 
-### 🏠 Home
-
-The home page provides an introduction to PawsConnect and allows users to navigate to the main areas of the application.
+**Project Name:** PawsConnect  
+**Module:** INSY7315 – Information Systems 3E  
+**Assessment:** Formative Assessment Task 2 – Coding, Design, GitHub, Implementation  
+**Year:** 2026  
+**Platform:** Web Application  
+**Framework:** ASP.NET Core MVC  
+**Language:** C#  
+**Database:** Microsoft SQL Server / SQL Server LocalDB  
+**ORM:** Entity Framework Core  
+**UI Framework:** Bootstrap  
+**Authentication:** ASP.NET Core Identity  
+**Testing:** .NET automated tests  
+**Containerisation:** Docker  
 
 ---
 
-### 🐶 Find a Dog
+# 🐶 About PawsConnect
 
-Users can browse dogs currently available for adoption.
+PawsConnect is designed as a fictional animal shelter and adoption platform.
 
-Dog information includes details such as:
+The purpose of the system is to provide an easy-to-use website where users can:
 
-- Name
+- Browse dogs currently available for adoption.
+- View information about individual dogs.
+- Submit adoption applications.
+- Participate in a community forum.
+- Register and log into the application.
+- Access functionality appropriate to their user role.
+
+Administrators have additional functionality for managing dogs and maintaining the adoption system.
+
+The application focuses on usability, responsive design, accessibility, authentication, database integration, validation, and secure role-based functionality.
+
+---
+
+# ✨ Key Features
+
+## 🏠 Home Page
+
+The home page introduces PawsConnect and provides navigation to the main areas of the application.
+
+Users can quickly access:
+
+- Find a Dog
+- Community
+- About
+- Login/Register functionality
+
+---
+
+## 🐕 Find a Dog
+
+The Find a Dog section allows users to browse dogs currently available for adoption.
+
+Dog information can include:
+
+- Dog name
 - Breed
 - Age
+- Gender
 - Description
-- Availability
-- Images
-- Date added
+- Adoption status
+- Dog images
 
-Dogs are displayed through the `Dogs` section of the application.
-
----
-
-### ❤️ Adoption Applications
-
-Users can submit adoption applications for dogs they are interested in adopting.
-
-The adoption process allows the application to record information about the selected dog and the applicant.
-
-After successfully submitting an application, the user is directed to a confirmation page.
+Available dogs are displayed using a responsive card-based layout.
 
 ---
 
-### 👤 User Authentication
+## ❤️ Adoption Applications
 
-PawsConnect uses ASP.NET Core Identity to provide user authentication.
+Users can submit an adoption application for a selected dog.
+
+The adoption process collects relevant applicant information and validates submitted data.
+
+The system provides feedback to the user after an application is submitted.
+
+---
+
+## 💬 Community Forum
+
+PawsConnect includes a community area where users can participate in discussions.
+
+The forum is intended to provide a place for users to interact and share information related to pets and adoption.
+
+---
+
+## 🔐 Authentication
+
+PawsConnect uses ASP.NET Core Identity for authentication.
 
 Users can:
 
-- Register an account
-- Log in
-- Log out
-- Access authenticated functionality
+- Register an account.
+- Log into the application.
+- Log out.
+- Access functionality based on their permissions.
 
-Authentication is also used together with role-based authorization.
-
----
-
-### 🔐 Role-Based Authorization
-
-The application supports different levels of access.
-
-Administrative functionality is restricted to users with the appropriate administrator role.
-
-For example, dog creation functionality is protected using authorization so that only administrators can add dogs.
+Authentication is used to protect functionality that should only be available to logged-in users.
 
 ---
 
-### 🛠️ Admin Functionality
+## 👑 Administrator Functionality
 
-Administrators can manage shelter-related information through the administration functionality.
+Authorised administrators have access to additional functionality.
+
+Administrator functionality includes managing dogs within the system.
 
 This includes functionality such as:
 
-- Adding dogs
-- Managing dog information
-- Uploading dog images
-- Accessing administrator features
+- Adding dogs.
+- Updating dog information.
+- Managing dog images.
+- Managing adoption-related information.
 
-Administrative functions are protected using authorization.
-
----
-
-### 💬 Community Forum
-
-PawsConnect includes a community/forum area where users can interact with the application community.
-
-The forum provides an additional area for users to communicate and participate in discussions related to the shelter and adoption community.
+Administrative functionality is protected using role-based authorisation.
 
 ---
 
-### 🖼️ Dog Image Uploads
+# 🎨 Front End
 
-Dogs can have images associated with their profiles.
+The front end was designed with usability, consistency, responsiveness, and accessibility in mind.
 
-Uploaded images are stored and displayed as part of the dog information.
+## Look and Feel
 
-This allows potential adopters to visually identify and learn more about dogs available for adoption.
+The application uses a consistent visual design throughout the main pages.
 
----
+Bootstrap is used to assist with:
 
-## 🏗️ Technology Stack
+- Responsive layouts.
+- Navigation.
+- Cards.
+- Forms.
+- Buttons.
+- Alerts.
+- Spacing.
+- Grid layouts.
 
-### Backend
-
-- **C#**
-- **ASP.NET Core MVC**
-- **.NET 10**
-- **Entity Framework Core**
-- **ASP.NET Core Identity**
-
-### Frontend
-
-- **Razor Views**
-- **HTML**
-- **CSS**
-- **Bootstrap**
-- **JavaScript**
-
-### Database
-
-- **Microsoft SQL Server**
-- **SQL Server LocalDB** for local development
-- **Entity Framework Core migrations**
-
-### Testing
-
-- **.NET testing framework**
-- **PawsConnect.Tests**
-
-### Deployment / Containerisation
-
-- **Docker**
-- **Dockerfile**
-
-### Development Environment
-
-- **Visual Studio**
-- **Git**
-- **GitHub**
+The PawsConnect branding uses an animal-adoption theme to make the purpose of the application clear to users.
 
 ---
 
-## 📁 Project Structure
+## Usability
+
+The interface is designed to make common tasks straightforward.
+
+Users can easily navigate between:
+
+- Home
+- Find a Dog
+- Community
+- About
+- Authentication
+- Administration functionality where authorised
+
+Buttons and navigation links are labelled according to their purpose.
+
+Forms provide validation and feedback when information is missing or invalid.
+
+---
+
+## Responsive Design
+
+The application uses responsive Bootstrap layouts so that pages can adapt to:
+
+- Desktop screens.
+- Tablet screens.
+- Mobile screens.
+
+Cards, forms, navigation elements, and content areas are designed to resize and reorganise appropriately for different screen sizes.
+
+---
+
+## Accessibility
+
+Accessibility considerations include:
+
+- Clear labels for form fields.
+- Meaningful button and link text.
+- Readable typography.
+- Structured page layouts.
+- Appropriate colour contrast.
+- Responsive content.
+- Keyboard-accessible standard HTML controls.
+
+---
+
+# ⚙️ Back End
+
+PawsConnect uses ASP.NET Core MVC and C# for the application back end.
+
+The application follows a structured MVC architecture consisting of:
 
 ```text
-PawsConnect/
+PawsConnect
 │
-├── PawsConnect/
-│   ├── Controllers/
-│   ├── Data/
-│   ├── Migrations/
-│   ├── Models/
-│   ├── Properties/
-│   ├── ViewModels/
-│   ├── Views/
-│   ├── wwwroot/
-│   │
-│   ├── Dockerfile
-│   ├── PawsConnect.csproj
-│   ├── Program.cs
-│   ├── appsettings.json
-│   ├── appsettings.Development.json
-│   └── appsettings.Production.json
-│
-├── PawsConnect.Tests/
-│
-├── .dockerignore
-├── .gitignore
-├── PawsConnect.slnx
-└── README.md
+├── Controllers
+├── Data
+├── Migrations
+├── Models
+├── ViewModels
+├── Views
+└── wwwroot
