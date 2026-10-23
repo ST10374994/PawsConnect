@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -74,17 +75,14 @@ namespace PawsConnect.Controllers
                     ClaimTypes.NameIdentifier,
                     user.UserId.ToString()
                 ),
-
                 new Claim(
                     ClaimTypes.Name,
                     $"{user.FirstName} {user.LastName}"
                 ),
-
                 new Claim(
                     ClaimTypes.Email,
                     user.Email
                 ),
-
                 new Claim(
                     ClaimTypes.Role,
                     user.Role

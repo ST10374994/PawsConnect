@@ -1,0 +1,38 @@
+
+name: PawsConnect CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/task2-feedback-fixes
+  pull_request:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install .NET 10 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore PawsConnect.slnx
+
+      - name: Build solution
+        run: dotnet build PawsConnect.slnx --configuration Release --no-restore
+
+      - name: Run automated tests
+        run: dotnet test PawsConnect.Tests/PawsConnect.Tests.csproj --configuration Release
