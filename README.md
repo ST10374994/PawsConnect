@@ -1,395 +1,194 @@
 # 🐾 PawsConnect
 
-PawsConnect is a web-based animal adoption and community platform developed for the INSY7315 Information Systems 3E 2026 implementation project.
+PawsConnect is a web-based animal adoption and community platform developed for the **INSY7315 Information Systems 3E 2026** implementation project.
 
-The system provides users with a simple and accessible way to browse dogs available for adoption, view dog information, submit adoption applications, and participate in a community forum. Administrative functionality allows authorised users to manage dogs and adoption-related information.
-
----
+The application allows users to browse dogs, view their information, submit adoption applications, and access community features. Authorised administrators can manage dog listings and review adoption applications.
 
 ## 👤 Student Information
 
-**Student Name:** Morné Viljoen
-**Student Number:** ST10374994
+- **Student:** Morné Viljoen
+- **Student Number:** ST10374994
+- **Module:** INSY7315 – Information Systems 3E
+- **Assessment:** Formative Assessment Task 2
+- **Year:** 2026
 
-**Project:** PawsConnect
-**Module:** INSY7315 – Information Systems 3E
-**Year:** 2026
+## 🎥 Project Demonstration
 
-### 🎥 Project Demonstration
+[▶️ Watch the PawsConnect Demonstration on YouTube](https://youtu.be/yRBfw6nX7Bo)
 
-The PawsConnect application demonstration is available on YouTube:
+## 🛠️ Technology Stack
 
-**[▶️ Watch the PawsConnect Demonstration](https://youtu.be/yRBfw6nX7Bo)**
+- **Framework:** ASP.NET Core MVC
+- **Language:** C#
+- **Target Framework:** .NET 10
+- **Database:** Microsoft SQL Server
+- **ORM:** Entity Framework Core
+- **Front end:** Razor Views, HTML, CSS and Bootstrap
+- **API:** ASP.NET Core REST endpoints returning JSON
+- **Testing:** xUnit and .NET test tooling
+- **CI:** GitHub Actions
+- **Containerisation:** Docker support
 
----
+## ✨ Features
 
-## 📌 Project Information
+### 🏠 Home and Dog Listings
 
-**Project Name:** PawsConnect
-**Module:** INSY7315 – Information Systems 3E
-**Assessment:** Formative Assessment Task 2 – Coding, Design, GitHub, Implementation
-**Year:** 2026
-**Platform:** Web Application
-**Framework:** ASP.NET Core MVC
-**Language:** C#
-**Database:** Microsoft SQL Server / SQL Server LocalDB
-**ORM:** Entity Framework Core
-**UI Framework:** Bootstrap
-**Authentication:** ASP.NET Core Identity
-**Testing:** .NET automated tests
-**Containerisation:** Docker
+- Home page with navigation to the main application sections.
+- Browse dogs available for adoption.
+- View dog details, including name, breed, age, gender, description, status and images.
+- Responsive layouts using Bootstrap.
 
----
+### ❤️ Adoption Applications
 
-# 🐶 About PawsConnect
+- Submit an adoption application for a selected dog.
+- Validate application information.
+- Track application status.
+- Allow administrators to approve or reject pending applications.
+- Mark a dog's status as adopted when an application is approved.
+- Prevent approval or rejection of applications that are not pending.
+- Prevent approval when the associated dog is no longer available.
 
-PawsConnect is designed as a fictional animal shelter and adoption platform.
+### 💬 Community
 
-The purpose of the system is to provide an easy-to-use website where users can:
+The application includes a community forum area intended for pet-related discussions.
 
-* Browse dogs currently available for adoption.
-* View information about individual dogs.
-* Submit adoption applications.
-* Participate in a community forum.
-* Register and log into the application.
-* Access functionality appropriate to their user role.
+### 👑 Administration
 
-Administrators have additional functionality for managing dogs and maintaining the adoption system.
+Authorised administrators can manage dog listings and review adoption applications. Administrative actions are protected by authorisation checks.
 
-The application focuses on usability, responsive design, accessibility, authentication, database integration, validation, and secure role-based functionality.
+### 🔐 Authentication and Authorisation
 
----
+The application uses custom cookie-based authentication and role-based authorisation. Protected operations require the appropriate authenticated user or administrator permissions.
 
-# ✨ Key Features
+> Note: Authentication is implemented using the application's custom cookie-based approach; this project does not claim to use ASP.NET Core Identity.
 
-## 🏠 Home Page
+## 🏗️ Application Architecture
 
-The home page introduces PawsConnect and provides navigation to the main areas of the application.
-
-Users can quickly access:
-
-* Find a Dog
-* Community
-* About
-* Login/Register functionality
-
----
-
-## 🐕 Find a Dog
-
-The Find a Dog section allows users to browse dogs currently available for adoption.
-
-Dog information can include:
-
-* Dog name
-* Breed
-* Age
-* Gender
-* Description
-* Adoption status
-* Dog images
-
-Available dogs are displayed using a responsive card-based layout.
-
----
-
-## ❤️ Adoption Applications
-
-Users can submit an adoption application for a selected dog.
-
-The adoption process collects relevant applicant information and validates submitted data.
-
-The system provides feedback to the user after an application is submitted.
-
----
-
-## 💬 Community Forum
-
-PawsConnect includes a community area where users can participate in discussions.
-
-The forum is intended to provide a place for users to interact and share information related to pets and adoption.
-
----
-
-## 🔐 Authentication
-
-PawsConnect uses ASP.NET Core Identity for authentication.
-
-Users can:
-
-* Register an account.
-* Log into the application.
-* Log out.
-* Access functionality based on their permissions.
-
-Authentication is used to protect functionality that should only be available to logged-in users.
-
----
-
-## 👑 Administrator Functionality
-
-Authorised administrators have access to additional functionality.
-
-Administrator functionality includes managing dogs within the system.
-
-This includes functionality such as:
-
-* Adding dogs.
-* Updating dog information.
-* Managing dog images.
-* Managing adoption-related information.
-
-Administrative functionality is protected using role-based authorisation.
-
----
-
-# 🎨 Front End
-
-The front end was designed with usability, consistency, responsiveness, and accessibility in mind.
-
-## Look and Feel
-
-The application uses a consistent visual design throughout the main pages.
-
-Bootstrap is used to assist with:
-
-* Responsive layouts.
-* Navigation.
-* Cards.
-* Forms.
-* Buttons.
-* Alerts.
-* Spacing.
-* Grid layouts.
-
-The PawsConnect branding uses an animal-adoption theme to make the purpose of the application clear to users.
-
----
-
-## Usability
-
-The interface is designed to make common tasks straightforward.
-
-Users can easily navigate between:
-
-* Home
-* Find a Dog
-* Community
-* About
-* Authentication
-* Administration functionality where authorised
-
-Buttons and navigation links are labelled according to their purpose.
-
-Forms provide validation and feedback when information is missing or invalid.
-
----
-
-## Responsive Design
-
-The application uses responsive Bootstrap layouts so that pages can adapt to:
-
-* Desktop screens.
-* Tablet screens.
-* Mobile screens.
-
-Cards, forms, navigation elements, and content areas are designed to resize and reorganise appropriately for different screen sizes.
-
----
-
-## Accessibility
-
-Accessibility considerations include:
-
-* Clear labels for form fields.
-* Meaningful button and link text.
-* Readable typography.
-* Structured page layouts.
-* Appropriate colour contrast.
-* Responsive content.
-* Keyboard-accessible standard HTML controls.
-
----
-
-# ⚙️ Back End
-
-PawsConnect uses ASP.NET Core MVC and C# for the application back end.
-
-The application follows a structured MVC architecture consisting of:
+PawsConnect uses the Model–View–Controller (MVC) pattern.
 
 ```text
 PawsConnect
-│
 ├── Controllers
+│   ├── MVC controllers
+│   ├── AdoptionApiController.cs
+│   └── DogsApiController.cs
 ├── Data
-├── Migrations
+│   └── ApplicationDbContext.cs
 ├── Models
 ├── ViewModels
+├── Repositories
+│   ├── IAdoptionRepository.cs
+│   └── AdoptionRepository.cs
+├── Services
+│   └── AdoptionService.cs
 ├── Views
+├── Migrations
 └── wwwroot
 ```
 
-The **Controllers** handle application requests and coordinate between the models and views.
+- **Controllers** handle incoming requests and coordinate application operations.
+- **Services** contain adoption workflow and business rules.
+- **Repositories** isolate adoption data-access operations from the service.
+- **Models** represent domain entities.
+- **ViewModels** carry and validate data used by the user interface.
+- **Views** render the Razor-based web interface.
+- **ApplicationDbContext** provides Entity Framework Core database access.
+- **Migrations** support database schema changes.
+- **wwwroot** contains static resources and website assets.
 
-The **Models** represent the application's data and domain entities.
+## 🌐 REST API
 
-The **ViewModels** are used to transfer and validate data between the user interface and application logic where required.
+The application includes dedicated API controllers for dog listings and adoption-related operations. These endpoints provide a JSON-based interface in addition to the MVC user interface.
 
-The **Views** provide the Razor-based user interface.
+API controller files:
 
-The **Data** layer contains the Entity Framework Core database context and related database configuration.
+- `PawsConnect/Controllers/DogsApiController.cs`
+- `PawsConnect/Controllers/AdoptionApiController.cs`
 
-The **Migrations** folder contains Entity Framework Core database migrations.
+The exact routes and supported HTTP methods are defined by the controller route attributes and actions. Refer to those files for the current endpoint definitions.
 
-The **wwwroot** folder contains static resources such as CSS, JavaScript, and uploaded/static website assets.
-
----
-
-# 🗄️ Database
+## 🗄️ Database
 
 PawsConnect uses Microsoft SQL Server with Entity Framework Core.
 
-During local development, SQL Server LocalDB can be used to provide the database environment.
+The database supports application data such as dog listings and adoption applications. Entity Framework Core provides object-relational mapping, querying, persistence and migration support.
 
-Entity Framework Core is responsible for:
+Database connection strings and other sensitive local configuration should be provided through development secrets or environment-specific configuration. Credentials must not be committed to source control.
 
-* Database access.
-* Object-relational mapping.
-* Database migrations.
-* Persisting application data.
-* Querying application entities.
+## 🧪 Automated Testing
 
-The database stores information required for functionality such as users, dogs, dog images, adoption applications, and forum-related data.
+The solution includes an xUnit test project:
 
----
+`PawsConnect.Tests`
 
-# 🧪 Testing
+The tests cover adoption service behaviour, including application submission, approval, rejection and invalid application states, as well as registration ViewModel validation.
 
-PawsConnect includes automated .NET testing to help verify that important application functionality operates correctly.
+**Latest locally verified results:**
 
-Tests can be accessed through **Visual Studio Test Explorer**:
+- Release build: successful
+- Automated tests: 11 passed
+- Failed tests: 0
 
-**Test → Test Explorer**
+Run the tests from the repository root:
 
-The automated tests are intended to help identify problems during development and provide confidence that core functionality continues to work after changes are made.
-
----
-
-# 🐳 Docker
-
-PawsConnect also includes Docker support for containerisation.
-
-Docker allows the application to be packaged into a consistent environment, helping to reduce differences between development and deployment environments.
-
-Containerisation supports the project's implementation requirements and provides an additional method for running the application.
-
----
-
-# 🔒 Security
-
-Security considerations have been incorporated into the application through ASP.NET Core Identity and role-based authorisation.
-
-The system uses:
-
-* User authentication.
-* Password-based account security through ASP.NET Core Identity.
-* Authorised access to administrative functionality.
-* Role-based authorisation.
-* Server-side validation.
-* Model validation.
-* Protected administrator functionality.
-
-Administrative actions are restricted to users assigned the appropriate role.
-
----
-
-# 🚀 Running the Application
-
-## Prerequisites
-
-Before running PawsConnect, ensure that the following are installed:
-
-* Visual Studio
-* .NET SDK
-* SQL Server LocalDB or SQL Server
-* Git
-* Docker Desktop (for containerised execution)
-
-## Running Locally
-
-1. Clone the PawsConnect repository.
-2. Open the solution in Visual Studio.
-3. Restore the NuGet packages.
-4. Ensure the database connection string is correctly configured.
-5. Apply the Entity Framework Core migrations if required.
-6. Build the solution.
-7. Run the application using Visual Studio.
-
-The application will open using the configured ASP.NET Core development URL.
-
----
-
-# 📁 Project Structure
-
-```text
-PawsConnect
-│
-├── Controllers
-│   ├── AdminController.cs
-│   ├── AdoptionController.cs
-│   ├── DogsController.cs
-│   ├── ForumController.cs
-│   └── ...
-│
-├── Data
-│   └── ApplicationDbContext.cs
-│
-├── Migrations
-│   └── Entity Framework Core migrations
-│
-├── Models
-│   ├── Dog.cs
-│   ├── DogImage.cs
-│   ├── AdoptionApplication.cs
-│   └── ...
-│
-├── ViewModels
-│   ├── CreateDogViewModel.cs
-│   └── ...
-│
-├── Views
-│   ├── Home
-│   ├── Dogs
-│   ├── Adoption
-│   ├── Forum
-│   ├── Admin
-│   └── Shared
-│
-├── wwwroot
-│   ├── css
-│   ├── js
-│   └── images
-│
-├── Program.cs
-├── appsettings.json
-└── PawsConnect.csproj
+```powershell
+dotnet test .\PawsConnect.Tests\PawsConnect.Tests.csproj --configuration Release
 ```
 
----
+Build the solution:
 
-# 📋 Project Summary
+```powershell
+dotnet build .\PawsConnect.slnx --configuration Release
+```
 
-PawsConnect demonstrates the development of a complete web-based animal adoption platform using modern Microsoft web development technologies.
+## ⚙️ Continuous Integration
 
-The project incorporates:
+GitHub Actions is configured in:
 
-* ASP.NET Core MVC
-* C#
-* Entity Framework Core
-* SQL Server
-* ASP.NET Core Identity
-* Bootstrap
-* Responsive web design
-* Form validation
-* Role-based authorisation
-* Automated te
+`.github/workflows/dotnet.yml`
+
+The workflow restores dependencies, builds the solution in Release configuration, and runs the automated test suite. It runs on pushes to configured branches and pull requests targeting `main` or `develop`.
+
+The latest observed GitHub Actions run for the build-and-test workflow completed successfully.
+
+This workflow provides **continuous integration**. It does not, by itself, deploy the application to a live hosting environment.
+
+## 🐳 Docker
+
+The project includes Docker support to help run the application in a containerised environment. Database connectivity and configuration must be set up appropriately for the selected environment.
+
+## 🚀 Running Locally
+
+### Prerequisites
+
+- Visual Studio with .NET development support
+- .NET 10 SDK
+- Microsoft SQL Server
+- Git
+- Docker Desktop, if using containers
+
+### Steps
+
+1. Clone the repository.
+2. Open the solution in Visual Studio.
+3. Restore NuGet dependencies.
+4. Configure the database connection string securely using User Secrets or environment variables.
+5. Ensure the SQL Server instance is running and the required database is available.
+6. Apply any required Entity Framework Core migrations.
+7. Build and run the application.
+
+Do not commit passwords, API keys or other credentials to GitHub.
+
+## 🔒 Security Considerations
+
+Security measures include authentication, role-based authorisation, server-side validation and protected administrative operations.
+
+Security work should also include protecting credentials, reviewing authentication and request-rate controls, and verifying that production configuration differs appropriately from development configuration.
+
+## 📋 Project Summary
+
+PawsConnect demonstrates an ASP.NET Core MVC animal adoption platform with a SQL Server database, an adoption service/repository layer, JSON REST API controllers, automated tests and a GitHub Actions continuous integration workflow.
+
+The project is developed for the INSY7315 2026 implementation assessment.
+
+**Demonstration:** [Watch on YouTube](https://youtu.be/yRBfw6nX7Bo)
