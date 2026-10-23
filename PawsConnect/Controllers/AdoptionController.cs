@@ -1,9 +1,9 @@
-﻿using System.Security.Claims;
+﻿
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PawsConnect.Data;
 using PawsConnect.Models;
+using PawsConnect.Services;
 using PawsConnect.ViewModels;
 
 namespace PawsConnect.Controllers
@@ -11,21 +11,18 @@ namespace PawsConnect.Controllers
     [Authorize]
     public class AdoptionController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly AdoptionService _adoptionService;
 
-        public AdoptionController(ApplicationDbContext context)
+        public AdoptionController(AdoptionService adoptionService)
         {
-            _context = context;
+            _adoptionService = adoptionService;
         }
 
         // GET: /Adoption/Create/5
         [HttpGet]
         public async Task<IActionResult> Create(int id)
         {
-            var dog = await _context.Dogs
-                .FirstOrDefaultAsync(d =>
-                    d.DogId == id &&
-                    d.Status == "Available");
+            var dog = await _adoptionService.GetAvailableDogAsync(id);
 
             if (dog == null)
             {
@@ -38,7 +35,6 @@ namespace PawsConnect.Controllers
             };
 
             ViewBag.Dog = dog;
-
             ViewData["Title"] = "Apply to Adopt";
 
             return View(model);
@@ -50,10 +46,7 @@ namespace PawsConnect.Controllers
         public async Task<IActionResult> Create(
             CreateAdoptionApplicationViewModel model)
         {
-            var dog = await _context.Dogs
-                .FirstOrDefaultAsync(d =>
-                    d.DogId == model.DogId &&
-                    d.Status == "Available");
+            var dog = await _adoptionService.GetAvailableDogAsync(model.DogId);
 
             if (dog == null)
             {
@@ -75,50 +68,40 @@ namespace PawsConnect.Controllers
                 return Challenge();
             }
 
-            var application = new AdoptionApplication
+            try
             {
-                DogId = model.DogId,
-                UserId = userId,
-                Address = model.Address,
-                Phone = model.Phone,
-                ReasonForAdoption = model.ReasonForAdoption,
-                HasOtherPets = model.HasOtherPets,
-                Experience = model.Experience,
-                Status = "Pending",
-                SubmittedAt = DateTime.UtcNow
-            };
+                var application =
+                    await _adoptionService.SubmitApplicationAsync(model, userId);
 
-            _context.AdoptionApplications.Add(application);
+                return RedirectToAction(
+                    nameof(Success),
+                    new { id = application.AdoptionApplicationId });
+            }
+            catch (InvalidOperationException)
+            {
+                ViewBag.Dog = null;
+                ModelState.AddModelError(
+                    string.Empty,
+                    "This dog is no longer available for adoption. Please choose another dog.");
 
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(
-                nameof(Success),
-                new { id = application.AdoptionApplicationId });
+                return View(model);
+            }
         }
 
         // GET: /Adoption/Success/5
         [HttpGet]
         public async Task<IActionResult> Success(int id)
         {
-            var application = await _context.AdoptionApplications
-                .Include(a => a.Dog)
-                .FirstOrDefaultAsync(a =>
-                    a.AdoptionApplicationId == id);
+            var application =
+                await _adoptionService.GetApplicationByIdAsync(id);
 
             if (application == null)
             {
                 return NotFound();
             }
 
-            ViewData["Title"] = "Application Submitted";
-
-            return View(application);
-        }
-        [HttpGet]
-        public async Task<IActionResult> MyApplications()
-        {
-            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userIdClaim = User.FindFirstValue(
+                ClaimTypes.NameIdentifier);
 
             if (userIdClaim == null ||
                 !int.TryParse(userIdClaim, out int userId))
@@ -126,11 +109,32 @@ namespace PawsConnect.Controllers
                 return Challenge();
             }
 
-            var applications = await _context.AdoptionApplications
-                .Include(a => a.Dog)
-                .Where(a => a.UserId == userId)
-                .OrderByDescending(a => a.SubmittedAt)
-                .ToListAsync();
+            if (application.UserId != userId &&
+                !User.IsInRole("Admin"))
+            {
+                return Forbid();
+            }
+
+            ViewData["Title"] = "Application Submitted";
+
+            return View(application);
+        }
+
+        // GET: /Adoption/MyApplications
+        [HttpGet]
+        public async Task<IActionResult> MyApplications()
+        {
+            var userIdClaim = User.FindFirstValue(
+                ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null ||
+                !int.TryParse(userIdClaim, out int userId))
+            {
+                return Challenge();
+            }
+
+            var applications =
+                await _adoptionService.GetUserApplicationsAsync(userId);
 
             var model = new AdoptionApplicationListViewModel
             {

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PawsConnect.Data;
+using PawsConnect.Services;
 
 namespace PawsConnect.Controllers
 {
@@ -9,10 +11,14 @@ namespace PawsConnect.Controllers
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly AdoptionService _adoptionService;
 
-        public AdminController(ApplicationDbContext context)
+        public AdminController(
+            ApplicationDbContext context,
+            AdoptionService adoptionService)
         {
             _context = context;
+            _adoptionService = adoptionService;
         }
 
         public IActionResult Index()
@@ -34,6 +40,7 @@ namespace PawsConnect.Controllers
 
             return View(applications);
         }
+
         [HttpGet]
         public async Task<IActionResult> Forum()
         {
@@ -47,6 +54,7 @@ namespace PawsConnect.Controllers
 
             return View(posts);
         }
+
         [HttpGet]
         public async Task<IActionResult> ApplicationDetails(int id)
         {
@@ -65,29 +73,18 @@ namespace PawsConnect.Controllers
 
             return View(application);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ApproveApplication(int id)
         {
-            var application = await _context.AdoptionApplications
-                .Include(a => a.Dog)
-                .FirstOrDefaultAsync(a =>
-                    a.AdoptionApplicationId == id);
+            var succeeded =
+                await _adoptionService.ApproveApplicationAsync(id);
 
-            if (application == null)
+            if (!succeeded)
             {
                 return NotFound();
             }
-
-            application.Status = "Approved";
-            application.ReviewedAt = DateTime.UtcNow;
-
-            if (application.Dog != null)
-            {
-                application.Dog.Status = "Adopted";
-            }
-
-            await _context.SaveChangesAsync();
 
             return RedirectToAction(
                 nameof(ApplicationDetails),
@@ -98,24 +95,19 @@ namespace PawsConnect.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RejectApplication(int id)
         {
-            var application = await _context.AdoptionApplications
-                .FirstOrDefaultAsync(a =>
-                    a.AdoptionApplicationId == id);
+            var succeeded =
+                await _adoptionService.RejectApplicationAsync(id);
 
-            if (application == null)
+            if (!succeeded)
             {
                 return NotFound();
             }
-
-            application.Status = "Rejected";
-            application.ReviewedAt = DateTime.UtcNow;
-
-            await _context.SaveChangesAsync();
 
             return RedirectToAction(
                 nameof(ApplicationDetails),
                 new { id });
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteForumPost(int id)

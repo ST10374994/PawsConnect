@@ -1,4 +1,5 @@
-﻿@model List<PawsConnect.Models.AdoptionApplication>
+﻿
+@model List<PawsConnect.Models.AdoptionApplication>
 
 @{
     ViewData["Title"] = "Adoption Applications";
@@ -67,9 +68,15 @@
                                         Approved
                                     </span>
                                 }
-                                else
+                                else if (application.Status == "Rejected")
                                 {
                                     <span class="badge bg-danger">
+                                        Rejected
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">
                                         @application.Status
                                     </span>
                                 }
