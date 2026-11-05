@@ -1,34 +1,38 @@
 # PawsConnect 🐾
 
-PawsConnect is an animal shelter web application developed using ASP.NET Core MVC. It helps users browse available dogs, submit adoption applications, and participate in a community forum. Administrative functionality supports managing dogs and reviewing adoption applications.
+PawsConnect is an animal shelter web application developed using ASP.NET Core MVC and C#. The application allows users to browse dogs available for adoption, submit adoption applications and participate in a community forum. It also provides administrator functionality for managing dog listings and reviewing adoption applications.
 
 ## Features
 
-- **Dog listings:** Browse available dogs and view their details and images.
+- **Dog listings:** Browse available dogs and view their details and photographs.
 - **Adoption applications:** Submit applications to adopt available dogs.
-- **Application management:** Administrators can review, approve, or reject adoption applications.
-- **User authentication:** Cookie-based authentication and access control.
-- **Community forum:** Access the forum functionality.
-- **REST API:** JSON endpoints for dog listings and adoption operations.
+- **Application management:** Administrators can review, approve or reject adoption applications.
+- **User authentication:** Cookie-based authentication and role-based access control.
+- **Community forum:** Access community discussions and forum functionality.
+- **REST API:** JSON endpoints for dog listings and adoption-related operations.
 - **Database persistence:** Store application data using SQL Server and Entity Framework Core.
-- **Automated testing:** Unit tests for adoption service behaviour.
+- **Automated testing:** xUnit tests covering application functionality, including adoption service behaviour.
 - **Continuous integration:** GitHub Actions builds the solution and runs automated tests.
 
 ## Technology Stack
 
-- **Backend:** C#, ASP.NET Core MVC, .NET 10
-- **Frontend:** Razor Views, HTML, CSS, JavaScript and Bootstrap
-- **Database:** Microsoft SQL Server
-- **ORM:** Entity Framework Core
-- **API:** ASP.NET Core REST controllers returning JSON
-- **Testing:** xUnit
-- **Version control:** Git and GitHub
-- **CI:** GitHub Actions
-- **Containerisation:** Docker
+| Component | Technology |
+|---|---|
+| Backend | C#, ASP.NET Core MVC, .NET 10 |
+| Frontend | Razor Views, HTML, CSS, JavaScript, Bootstrap |
+| Database | Microsoft SQL Server |
+| ORM | Entity Framework Core |
+| API | ASP.NET Core REST controllers |
+| Testing | xUnit |
+| Version control | Git and GitHub |
+| Continuous integration | GitHub Actions |
+| Containerisation | Docker |
 
 ## Application Architecture
 
-PawsConnect follows the Model–View–Controller (MVC) pattern, with service and repository layers used to separate business logic and data access.
+PawsConnect follows the Model–View–Controller (MVC) pattern. Service and repository layers are also used to separate business logic from database operations.
+
+### Project structure
 
 ```text
 PawsConnect/
@@ -80,69 +84,93 @@ PawsConnect/
 └── README.md
 ```
 
-*The structure above highlights the main application components. The ellipsis represents any additional controller files, and the tree should be kept aligned with the files committed to the repository.*
+*This is an overview of the main project structure. The ellipsis represents additional files that are not listed individually.*
 
 ### Architecture components
 
-- **Controllers:** Handle incoming HTTP requests, coordinate application operations, and return views or API responses.
-- **Models:** Represent application entities and domain data.
-- **ViewModels:** Supply data required by the presentation layer.
-- **Services:** Encapsulate business rules and operations, including adoption application processing.
-- **Repositories:** Separate adoption data-access operations from the service layer.
+- **Controllers:** Handle incoming HTTP requests and coordinate application operations. They return Razor views or API responses.
+- **Models:** Represent the application's entities and domain data.
+- **ViewModels:** Provide the data required by the presentation layer.
+- **Services:** Contain business logic and application operations, including adoption application processing.
+- **Repositories:** Separate adoption-related data access from the service layer.
 - **Data:** Contains `ApplicationDbContext`, which manages database access through Entity Framework Core.
-- **Views:** Provide the MVC user interface using Razor.
-- **Migrations:** Track Entity Framework Core database schema changes.
-- **wwwroot:** Contains static assets and uploaded dog images.
-- **PawsConnect.Tests:** Contains automated tests for application functionality.
-- **GitHub Actions:** Automates solution builds and test execution when changes are pushed or pull requests are opened.
+- **Views:** Provide the user interface using Razor.
+- **Migrations:** Track database schema changes through Entity Framework Core.
+- **wwwroot:** Contains static resources and uploaded dog images.
+- **PawsConnect.Tests:** Contains automated tests.
+- **GitHub Actions:** Runs automated build and test checks when changes are pushed or pull requests are opened.
+
+This structure keeps the different responsibilities separate and makes the application easier to maintain.
 
 ## REST API
 
-PawsConnect includes dedicated API controllers for returning application data as JSON.
+PawsConnect includes dedicated API controllers that provide application data in JSON format.
 
 | Controller | Purpose |
 |---|---|
 | `DogsApiController` | Provides API operations for dog listings. |
 | `AdoptionApiController` | Provides API operations related to adoption applications. |
 
-The exact HTTP methods, route templates, request formats, and response codes are defined in the API controllers.
+The dog listings endpoint can be accessed at:
+
+`http://pawsconnect-st10374994.runasp.net/api/dogs`
+
+It returns available dog listing information as JSON.
+
+The exact HTTP methods, route templates, request formats and response codes are defined in the API controllers.
 
 ## Database
 
-The application uses Microsoft SQL Server for persistent storage, with Entity Framework Core managing database operations and schema migrations.
+PawsConnect uses Microsoft SQL Server for persistent data storage. Entity Framework Core manages database operations and schema migrations through `ApplicationDbContext`.
 
-Database connection strings and sensitive local configuration should be supplied through development secrets or environment variables rather than committed to source control.
+The local development database was run using Docker.
+
+Database connection strings and sensitive configuration details should be supplied through .NET User Secrets during development or environment variables in deployment environments. These values should not be committed to source control.
 
 ## Security
 
+The application includes the following security-related features:
+
 - Cookie-based authentication manages user sessions.
-- Access restrictions are applied to protected functionality.
-- Sensitive configuration is kept outside committed application settings.
-- Adoption operations validate application status and dog availability before approval or rejection.
+- Role-based access restrictions protect administrator functionality.
+- Sensitive local database configuration is kept outside committed application settings.
+- Adoption operations check application status and dog availability before processing approval or rejection.
+- Antiforgery protection is used for applicable form submissions.
 
 ## Testing and Continuous Integration
 
 The `PawsConnect.Tests` project uses xUnit to test application behaviour.
 
-GitHub Actions is configured in `.github/workflows/dotnet.yml` to:
+The latest verified local Release test run completed with:
+
+- **11 tests passed**
+- **0 tests failed**
+- **0 tests skipped**
+
+The solution also built successfully in Release configuration.
+
+GitHub Actions is configured in `.github/workflows/dotnet.yml` to perform the following steps:
 
 1. Check out the repository.
 2. Install the .NET 10 SDK.
-3. Restore dependencies.
+3. Restore NuGet dependencies.
 4. Build the solution in Release configuration.
-5. Execute automated tests.
+5. Run the automated tests.
 
-The latest verified local test run completed with **11 tests passed and 0 failed**. The GitHub Actions build-and-test workflow also passed.
+The workflow provides automated build and test validation. Deployment to the hosting provider is currently performed manually.
 
 ## Running Locally
 
 ### Prerequisites
 
-- .NET 10 SDK
-- Microsoft SQL Server
-- Visual Studio or another compatible .NET development environment
+Before running PawsConnect locally, make sure the following software is installed:
 
-### Setup
+- .NET 10 SDK.
+- Visual Studio with the ASP.NET and web development workload.
+- Docker Desktop.
+- SQL Server running locally through Docker.
+
+### Setup instructions
 
 1. Clone the repository:
 
@@ -150,41 +178,68 @@ The latest verified local test run completed with **11 tests passed and 0 failed
    git clone https://github.com/ST10374994/PawsConnect.git
    ```
 
-2. Open `PawsConnect.slnx` in Visual Studio.
+2. Open the downloaded project folder.
 
-3. Configure the database connection string securely using .NET User Secrets or an environment variable.
+3. Open `PawsConnect.slnx` in Visual Studio.
 
-4. Ensure SQL Server is running and the configured database is available.
+4. Allow Visual Studio to restore the required NuGet packages.
 
-5. Apply any pending Entity Framework Core migrations if required.
+5. Start Docker Desktop and make sure the SQL Server container is running.
 
-6. Run the `PawsConnect` project using the HTTPS launch profile.
+6. Configure the `DefaultConnection` connection string using .NET User Secrets. The connection details must match the local SQL Server configuration.
 
-### Run automated tests
+7. Confirm that the `PawsConnectDb` database is available. Apply any pending Entity Framework Core migrations if required.
 
-From the repository root, execute:
+8. Select the HTTPS launch profile in Visual Studio.
+
+9. Press **F5** to run the application with debugging, or **Ctrl + F5** to run without debugging.
+
+The local development addresses are:
+
+- HTTPS: `https://localhost:7121/`
+- HTTP: `http://localhost:5284/`
+
+The actual address depends on the selected launch profile.
+
+### Running automated tests
+
+From the repository root, run:
 
 ```bash
 dotnet test ./PawsConnect.Tests/PawsConnect.Tests.csproj --configuration Release
 ```
 
-### Build the solution
+### Building the solution
+
+To build the solution in Release configuration, run:
 
 ```bash
 dotnet build ./PawsConnect.slnx --configuration Release
 ```
 
+## Live Application
+
+The hosted application is available at:
+
+http://pawsconnect-st10374994.runasp.net/
+
+Users can access the website through a browser without setting up the local development environment.
+
 ## Version Control and CI
 
-Development is managed through Git and GitHub. Feature branches and pull requests support code review and integration, while GitHub Actions provides automated build and test validation.
+Development is managed using Git and GitHub. Feature branches and pull requests support development and code integration.
+
+GitHub Actions provides automated build and test validation when changes are pushed or pull requests are opened.
+
+The application is deployed to the hosting provider manually rather than through an automated deployment pipeline.
 
 ## Project Demonstration
 
-**Video demonstration:** https://youtu.be/yRBfw6nX7Bo
+**Video demonstration:**  
+https://youtu.be/yRBfw6nX7Bo
 
 ## Author
 
 **Morné Viljoen**
 
 Student project developed for the INSY7315 application development assignment.
-
